@@ -1,4 +1,9 @@
 <?php
+
+if ($_SESSION['loggedIn'] == false){
+    header("location: index.php");
+}   
+
 if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();

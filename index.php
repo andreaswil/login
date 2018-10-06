@@ -58,6 +58,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     // if nubmer of rows == 1 then the there exists a user with given username and password
     if ($count == 1){
         $_SESSION['loginUsername'] = $loginUsername;
+        $_SESSION['loggedIn'] = true;
     }
 }
 
