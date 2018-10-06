@@ -1,7 +1,8 @@
-    
 <?php
+session_start();
 
 require('../connect.php');
+
 
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
@@ -22,13 +23,6 @@ password VARCHAR(255) NOT NULL
 // Function for passing a query to the database
 mysqli_query($conn, $createUsersSQLQuery);
 
-?>
-
-<!DOCTYPE HTML>  
-<html>
-<body>  
-
-<?php
 // define variables and set to empty values
 $loginUsernameError = $loginPasswordError = "";
 $loginUsername = $loginPassword = "";
@@ -65,9 +59,6 @@ function test_input($data) {
   return $data;
 }
 
-    
-//Start the Session
-session_start();
 //3.1 If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     //3.1.2 Checking the values are existing in the database or not
@@ -78,22 +69,28 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
     if ($count == 1){
         echo '<script>console.log("Your stuff here")</script>';
-        $_SESSION['username'] = $loginUsername;
+        $_SESSION['loginUsername'] = $loginUsername;
     }else{
         //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
         $fmsg = "Invalid Login Credentials.";
     }
 }
 
-
-
-if (isset($_SESSION['loginUsername'])){   
-    header("location: user.php");
+if (isset($_SESSION['loginUsername'])){
+    require ('user.php');
     exit;
 }
 
-   
+session_unset();
+session_destroy();
+
+
 ?>
+
+<!DOCTYPE HTML>  
+<html>
+<body>  
+
 
 <h2>Login</h2>
     
