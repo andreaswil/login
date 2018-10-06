@@ -64,6 +64,35 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+
+    
+//Start the Session
+session_start();
+//3.1 If the form is submitted
+if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
+    //3.1.2 Checking the values are existing in the database or not
+    $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
+ 
+    $result = mysqli_query($conn, $query) or die(mysqli_error($connection)); 
+    $count = mysqli_num_rows($result);
+    //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
+    if ($count == 1){
+        echo '<script>console.log("Your stuff here")</script>';
+        $_SESSION['username'] = $loginUsername;
+    }else{
+        //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
+        $fmsg = "Invalid Login Credentials.";
+    }
+}
+
+
+
+if (isset($_SESSION['loginUsername'])){   
+    header("location: user.php");
+    exit;
+}
+
+   
 ?>
 
 <h2>Login</h2>
@@ -76,8 +105,12 @@ function test_input($data) {
   Password: <input type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
   <br><br>
   
-  <input type="submit" name="submit" value="Submit">  
+  <input type="submit" name="submit" value="Submit">
+    
+  <br><br>
+    
+ 
 </form>
-
+    
 </body>
 </html>
