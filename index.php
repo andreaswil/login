@@ -10,9 +10,6 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-
-  
-// Various checks for username and passwords
 ?>
 
 <!DOCTYPE HTML>  
@@ -24,6 +21,7 @@ if ($conn->connect_error) {
 $loginUsernameError = $loginPasswordError = "";
 $loginUsername = $loginPassword = "";
 
+// Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginUsername"])) {
     $loginUsernameError = "Name is required";
@@ -47,14 +45,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 function test_input($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
+  $data = trim($data); // Strip unnecessary characters (extra space, tab, newline) from the user input data (with the PHP trim() function)
+  $data = stripslashes($data); // Remove backslashes (\) from the user input data (with the PHP stripslashes() function)
   $data = htmlspecialchars($data);
   return $data;
 }
 ?>
 
 <h2>Login</h2>
+    
+<!-- The $_SERVER["PHP_SELF"] is a super global variable that returns the filename of the currently executing script. The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms. -->
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
