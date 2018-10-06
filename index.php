@@ -12,17 +12,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Sql query for creating users table
-$createUsersSQLQuery = "CREATE TABLE Users (
-userid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-username VARCHAR(50) NOT NULL UNIQUE,
-password VARCHAR(255) NOT NULL
-)";
-
-
-// Function for passing a query to the database
-mysqli_query($conn, $createUsersSQLQuery);
-
 // define variables and set to empty values
 $loginUsernameError = $loginPasswordError = "";
 $loginUsername = $loginPassword = "";
@@ -66,13 +55,9 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
  
     $result = mysqli_query($conn, $query) or die(mysqli_error($connection)); 
     $count = mysqli_num_rows($result);
-    //3.1.2 If the posted values are equal to the database values, then session will be created for the user.
+    // if nubmer of rows == 1 then the there exists a user with given username and password
     if ($count == 1){
-        echo '<script>console.log("Your stuff here")</script>';
         $_SESSION['loginUsername'] = $loginUsername;
-    }else{
-        //3.1.3 If the login credentials doesn't match, he will be shown with an error message.
-        $fmsg = "Invalid Login Credentials.";
     }
 }
 
@@ -81,8 +66,7 @@ if (isset($_SESSION['loginUsername'])){
     exit;
 }
 
-session_unset();
-session_destroy();
+
 
 
 ?>
