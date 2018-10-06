@@ -9,7 +9,19 @@ $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
+
+// Sql query for creating users table
+$createUsersSQLQuery = "CREATE TABLE Users (
+userid INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+username VARCHAR(50) NOT NULL UNIQUE,
+password VARCHAR(255) NOT NULL
+)";
+
+
+// Function for passing a query to the database
+mysqli_query($conn, $createUsersSQLQuery);
+
 ?>
 
 <!DOCTYPE HTML>  
@@ -24,12 +36,13 @@ $loginUsername = $loginPassword = "";
 // Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginUsername"])) {
-    $loginUsernameError = "Name is required";
+    $loginUsernameError = "Userame is required";
   } else {
     $loginUsername = test_input($_POST["loginUsername"]);
     // check if name only contains letters and whitespace
-    if (!preg_match("/^[a-zA-Z ]*$/",$loginUsername)) {
-      $loginUsernameError = "Only letters and white space allowed"; 
+    if (!preg_match("^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}$",$loginUsername)) {
+      // A regexp for general username entry. Which doesn't allow special characters other than underscore. Username must be of length ranging(3-30). starting letter should be a number or a character.
+      $loginUsernameError = "Only letters, numbers and underscores allowed"; 
     }
   }
     
@@ -39,7 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $loginPassword = test_input($_POST["loginPassword"]);
      // check if name only contains letters and whitespace
      if (!preg_match("/^[a-zA-Z ]*$/",$loginPassword)) {
-       $loginPasswordError = "Only letters and white space allowed"; 
+        // Password must contain at least one letter, at least one number, and be longer than six charaters.
+       $loginPasswordError = "Password must contain at least one letter, at least one number, and be longer than six charaters."; 
      }
    }
 }
@@ -59,19 +73,11 @@ function test_input($data) {
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
   <br><br>
-  Password: <input type="text" name="loginPassword" value="<?php echo $loginPassword;?>">
+  Password: <input type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
   <br><br>
   
   <input type="submit" name="submit" value="Submit">  
 </form>
-
-<?php
-echo "<h2>Your Input:</h2>";
-echo $loginUsername;
-echo "<br><br>";
-echo $loginPassword;
-echo "<br><br>";
-?>
 
 </body>
 </html>
