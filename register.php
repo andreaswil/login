@@ -63,12 +63,23 @@ function test_input($data) {
 }
 //If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $loginUsernamePregCheck and $loginPasswordPregCheck){
-    // Checking the values are existing in the database or not
-    $query = "INSERT INTO Users (username, password)" . "VALUES ('$loginUsername','$loginPassword')";
- 
-     mysqli_query($conn, $query) or die(mysqli_error($conn));
     
-     $wrongLoginInfo = "Registration succsessful!";
+    $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
+ 
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
+    $count = mysqli_num_rows($result);
+    // if nubmer of rows == 1 then the there exists a user with given username and password
+    if ($count == 1){
+        $wrongLoginInfo = "Username already taken";
+    }
+    else{
+        // Checking the values are existing in the database or not
+        $query = "INSERT INTO Users (username, password)" . "VALUES ('$loginUsername','$loginPassword')";
+ 
+        mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+        $wrongLoginInfo = "Registration succsessful!";
+    }
    
 }
 
