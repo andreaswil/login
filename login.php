@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-require('connect_to_database.php');
+require('../database_login_info.php');
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 // define variables and set to empty values
-$loginUsernameError = $loginPasswordError = "";
+$loginUsernameError = $loginPasswordError = $wrongLoginInfo = "";
 $loginUsername = $loginPassword = "";
 // Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,10 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $loginUsername = test_input($_POST["loginUsername"]);
     // check if name only contains letters and whitespace
-    if (!preg_match("^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}",$loginUsername)) {
-      // A regexp for general username entry. Which doesn't allow special characters other than underscore. Username must be of length ranging(3-30). starting letter should be a number or a character.
-      $loginUsernameError = "Only letters, numbers and underscores allowed"; 
-    }
+    $loginUsernameError = "";
   }
     
   if (empty($_POST["loginPassword"])) {
@@ -33,11 +30,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {  
      $loginPassword = test_input($_POST["loginPassword"]);
      // check if name only contains letters and whitespace
-     if (!preg_match("/^[a-zA-Z ]*$/",$loginPassword)) {
-        // Password must contain at least one letter, at least one number, and be longer than six charaters.
-       $loginPasswordError = "Password must contain at least one letter, at least one number, and be longer than six charaters."; 
-     }
-   }
+     $loginPasswordError = "";
+  }
+    
 }
 function test_input($data) {
   $data = trim($data); // Strip unnecessary characters (extra space, tab, newline) from the user input data (with the PHP trim() function)
@@ -57,7 +52,11 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
         $_SESSION['loginUsername'] = $loginUsername;
         $_SESSION['loggedIn'] = true;
     }
+    else {
+        $wrongLoginInfo = "Wrong username and/or password";
+    }
 }
+
 if (isset($_SESSION['loginUsername'])){
     require('profile.php');
     exit;
@@ -74,16 +73,20 @@ if (isset($_SESSION['loginUsername'])){
 <!-- The $_SERVER["PHP_SELF"] is a super global variable that returns the filename of the currently executing script. The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms. -->
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
-  <br><br>
-  Password: <input type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
-  <br><br>
+    Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
+    <br><br>
+    Password: <input type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
+    <br><br>
   
-  <input type="submit" name="submit" value="Submit">
+    <input type="submit" name="submit" value="Submit">
     
-  <br><br>
+    <br><br>
+    <?php echo $loginUsernameError?>
+    <br><br>
+    <?php echo $loginPasswordError?>
+    <br><br>
+    <?php echo $wrongLoginInfo?>
     
- 
 </form>
     
 </body>

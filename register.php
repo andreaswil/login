@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-require('connect_to_database.php');
+require('../database_login_info.php');
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -22,10 +22,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $loginUsername = test_input($_POST["loginUsername"]);
     // check if name only contains letters and whitespace
-    if (!preg_match("^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}$",$loginUsername)) {
-      // A regexp for general username entry. Which doesn't allow special characters other than underscore. Username must be of length ranging(3-30). starting letter should be a number or a character.
-      $loginUsernameError = "Only letters, numbers and underscores allowed"; 
+    if (!preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginUsername)) {
+      // one number, one uppercase letter, minimum 5 characters
+      $loginUsernameError = "Username: one number, one uppercase letter, minimum 5 characters"; 
     }
+      else {
+        $loginUsernameError = "";
+      }
   }
     
   if (empty($_POST["loginPassword"])) {
@@ -33,12 +36,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {  
      $loginPassword = test_input($_POST["loginPassword"]);
      // check if name only contains letters and whitespace
-     if (!preg_match("/^[a-zA-Z ]*$/",$loginPassword)) {
-        // Password must contain at least one letter, at least one number, and be longer than six charaters.
-       $loginPasswordError = "Password must contain at least one letter, at least one number, and be longer than six charaters."; 
+     if (!preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/',$loginPassword)) {
+       // one number, one uppercase letter, minimum 5 characters
+       $loginPasswordError = "Password: one number, one uppercase letter, minimum 5 characters"; 
      }
    }
 }
+
 function test_input($data) {
   $data = trim($data); // Strip unnecessary characters (extra space, tab, newline) from the user input data (with the PHP trim() function)
   $data = stripslashes($data); // Remove backslashes (\) from the user input data (with the PHP stripslashes() function)
