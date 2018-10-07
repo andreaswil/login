@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_id("register-session");
+
 session_start();
 
 require('../database_login_info.php');
@@ -13,16 +15,22 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 // define variables and set to empty values
-$loginUsernameError = $loginPasswordError = "";
-$loginUsername = $loginPassword = "";
-// Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
+$loginUsernameError = $loginPasswordError = $wrongLoginInfo = "";
+$loginUsername = $loginPassword = $loginPasswordTested = "";
+$loginUsernamePregCheck = $loginPasswordPregCheck = "";
+// Check that the request mode used in the form is post, because post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginUsername"])) {
     $loginUsernameError = "Userame is required";
   } else {
-    $loginUsername = test_input($_POST["loginUsername"]);
-    // check if name only contains letters and whitespace
-    if (!preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginUsername)) {
+     
+     $loginUsernameTested = test_input($_POST["loginUsername"]);
+     $loginUsername = mysqli_real_escape_string($conn, $loginUsernameTested);
+     $loginUsernameError = "";
+     $loginUsernamePregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginUsername);
+  
+    
+    if (!$loginUsernamePregCheck) {
       // one number, one uppercase letter, minimum 5 characters
       $loginUsernameError = "Username: one number, one uppercase letter, minimum 5 characters"; 
     }
@@ -34,9 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginPassword"])) {
     $loginPasswordError = "Password is required";
   } else {  
-     $loginPassword = test_input($_POST["loginPassword"]);
-     // check if name only contains letters and whitespace
-     if (!preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/',$loginPassword)) {
+     $loginPasswordTested = test_input($_POST["loginPassword"]);
+     $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
+     $loginPasswordError = "";
+     $loginPasswordPregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginPassword);
+      
+      
+     if (!$loginPasswordPregCheck) {
        // one number, one uppercase letter, minimum 5 characters
        $loginPasswordError = "Password: one number, one uppercase letter, minimum 5 characters"; 
      }
@@ -49,12 +61,14 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-//3.1 If the form is submitted
-if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
-    //3.1.2 Checking the values are existing in the database or not
+//If the form is submitted
+if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $loginUsernamePregCheck and $loginPasswordPregCheck){
+    // Checking the values are existing in the database or not
     $query = "INSERT INTO Users (username, password)" . "VALUES ('$loginUsername','$loginPassword')";
  
-     mysqli_query($conn, $query) or die(mysqli_error($conn)); 
+     mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+     $wrongLoginInfo = "Registration succsessful!";
    
 }
 
@@ -81,6 +95,11 @@ session_destroy();
     
     
   <br><br>
+  <?php echo $loginUsernameError?>
+  <br><br>
+  <?php echo $loginPasswordError?>
+  <br><br>
+  <?php echo $wrongLoginInfo?>
     
  
 </form>
