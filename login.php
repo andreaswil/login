@@ -59,8 +59,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
 }
 
 if (isset($_SESSION['loginUsername'])){
-    require('profile.php');
-    exit;
+    header('location: profile.php');
 }
 ?>
 
