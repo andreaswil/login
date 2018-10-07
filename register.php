@@ -54,7 +54,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     //3.1.2 Checking the values are existing in the database or not
     $query = "INSERT INTO Users (username, password)" . "VALUES ('$loginUsername','$loginPassword')";
  
-     mysqli_query($conn, $query) or die(mysqli_error($connection)); 
+     mysqli_query($conn, $query) or die(mysqli_error($conn)); 
    
 }
 

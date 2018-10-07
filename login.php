@@ -14,22 +14,22 @@ if ($conn->connect_error) {
 }
 // define variables and set to empty values
 $loginUsernameError = $loginPasswordError = $wrongLoginInfo = "";
-$loginUsername = $loginPassword = "";
+$loginUsername = $loginPassword = $loginPasswordTested = "";
 // Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginUsername"])) {
     $loginUsernameError = "Userame is required";
   } else {
-    $loginUsername = test_input($_POST["loginUsername"]);
-    // check if name only contains letters and whitespace
-    $loginUsernameError = "";
+     $loginUsernameTested = test_input($_POST["loginUsername"]);
+     $loginUsername = mysqli_real_escape_string($conn, $loginUsernameTested);
+     $loginUsernameError = "";
   }
     
   if (empty($_POST["loginPassword"])) {
     $loginPasswordError = "Password is required";
   } else {  
-     $loginPassword = test_input($_POST["loginPassword"]);
-     // check if name only contains letters and whitespace
+     $loginPasswordTested = test_input($_POST["loginPassword"]);
+     $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
      $loginPasswordError = "";
   }
     
@@ -45,7 +45,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     //3.1.2 Checking the values are existing in the database or not
     $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
  
-    $result = mysqli_query($conn, $query) or die(mysqli_error($connection)); 
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
     $count = mysqli_num_rows($result);
     // if nubmer of rows == 1 then the there exists a user with given username and password
     if ($count == 1){
