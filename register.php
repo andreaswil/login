@@ -81,8 +81,6 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
    
 }
 
-session_unset();
-session_destroy();
 ?>
 
 
