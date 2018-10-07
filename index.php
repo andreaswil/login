@@ -15,7 +15,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
 
     elseif (isset($_POST['registerButton'])) {
-        require('register.php');
+        header('location: register.php');
+        exit;
         
         
     }

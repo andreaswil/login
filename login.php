@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $loginUsername = test_input($_POST["loginUsername"]);
     // check if name only contains letters and whitespace
-    if (!preg_match("^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}$",$loginUsername)) {
+    if (!preg_match("^[a-zA-Z0-9][a-zA-Z0-9_]{2,29}",$loginUsername)) {
       // A regexp for general username entry. Which doesn't allow special characters other than underscore. Username must be of length ranging(3-30). starting letter should be a number or a character.
       $loginUsernameError = "Only letters, numbers and underscores allowed"; 
     }
