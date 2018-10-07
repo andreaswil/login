@@ -1,9 +1,7 @@
 <?php
-
 if ($_SESSION['loggedIn'] == false){
     header("location: index.php");
 }   
-
 if (isset($_POST["logout"])) {
     session_unset();
     session_destroy();
@@ -16,7 +14,7 @@ if (isset($_POST["logout"])) {
 <body>  
 <h2>Welcome to your profile <?php echo $_SESSION['loginUsername']?></h2>
 
-<form method="post">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
     <button name="logout">Log out</button>
 </form>
     
