@@ -49,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
      $loginPasswordError = "";
      $loginPasswordPregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginPassword);
-      
+     $loginPassword = password_hash($loginPassword, PASSWORD_BCRYPT);
+     
       
      if (!$loginPasswordPregCheck) {
        // one number, one uppercase letter, minimum 5 characters
@@ -66,7 +67,6 @@ function test_input($data) {
 }
 //If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $loginUsernamePregCheck and $loginPasswordPregCheck){
-    
     $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
  
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
@@ -100,7 +100,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
   <br><br>
-  Password: <input type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
+  Password: <input type="password" name="loginPassword">
   <br><br>
   
   <input type="submit" name="submit" value="Submit">
