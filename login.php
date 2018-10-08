@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $loginPasswordTested = test_input($_POST["loginPassword"]);
      $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
      $loginPasswordError = "";
+      
   }
     
 }
@@ -51,12 +52,17 @@ function test_input($data) {
 //3.1 If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     //3.1.2 Checking the values are existing in the database or not
-    $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
+    $query = "SELECT * FROM `Users` WHERE username='$loginUsername'";
  
-    $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    
+    $user = mysqli_fetch_assoc($result);
+    
     $count = mysqli_num_rows($result);
+    
+    $passwordCheck = password_verify($_POST["loginPassword"], $user['password']);
     // if nubmer of rows == 1 then the there exists a user with given username and password
-    if ($count == 1){
+    if ($count == 1 and $passwordCheck){
         $_SESSION['loginUsername'] = $loginUsername;
         $_SESSION['loggedIn'] = true;
     }
