@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-require('../database_login_info.php');
+require('/database_login_info.php');
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed

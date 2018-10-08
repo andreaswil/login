@@ -6,9 +6,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-
-
-require('../database_login_info.php');
+require('/database_login_info.php');
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -49,9 +47,9 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-//3.1 If the form is submitted
+// If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
-    //3.1.2 Checking the values are existing in the database or not
+    // Checking the values are existing in the database or not
     $query = "SELECT * FROM `Users` WHERE username='$loginUsername'";
  
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
