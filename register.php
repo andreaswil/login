@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-require('database_login_info.php'); 
+require('database_login_info.php');  
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $loginUsernameError = "Userame is required";
   } else {
      
-     $loginUsernameTested = test_input($_POST["loginUsername"]);
+     $loginUsernameTested = securityCheck($_POST["loginUsername"]);
      $loginUsername = mysqli_real_escape_string($conn, $loginUsernameTested);
      $loginUsernameError = "";
      $loginUsernamePregCheck = preg_match('/^[a-zA-Z][a-zA-Z]{5,20}$/', $loginUsername);
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (empty($_POST["loginPassword"])) {
     $loginPasswordError = "Password is required";
   } else {  
-     $loginPasswordTested = test_input($_POST["loginPassword"]);
+     $loginPasswordTested = securityCheck($_POST["loginPassword"]);
      $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
      $loginPasswordError = "";
      $loginPasswordPregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginPassword);
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
    }
 }
 
-function test_input($data) {
+function securityCheck($data) {
   $data = trim($data); // Strip unnecessary characters (extra space, tab, newline) from the user input data (with the PHP trim() function)
   $data = stripslashes($data); // Remove backslashes (\) from the user input data (with the PHP stripslashes() function)
   $data = htmlspecialchars($data);
