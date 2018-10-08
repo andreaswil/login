@@ -30,12 +30,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $loginUsernameTested = test_input($_POST["loginUsername"]);
      $loginUsername = mysqli_real_escape_string($conn, $loginUsernameTested);
      $loginUsernameError = "";
-     $loginUsernamePregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginUsername);
-  
+     $loginUsernamePregCheck = preg_match('/^[a-zA-Z][a-zA-Z]{5,20}$/', $loginUsername);
+
     
     if (!$loginUsernamePregCheck) {
       // one number, one uppercase letter, minimum 5 characters
-      $loginUsernameError = "Username: one number, one uppercase letter, minimum 5 characters"; 
+      $loginUsernameError = "Username: username must be minimum 6 characters, maximum 20 characters and can only contain letters"; 
     }
       else {
         $loginUsernameError = "";
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       
      if (!$loginPasswordPregCheck) {
        // one number, one uppercase letter, minimum 5 characters
-       $loginPasswordError = "Password: one number, one uppercase letter, minimum 5 characters"; 
+       $loginPasswordError = "Password: password must contain one number, one uppercase letter, minimum 6 characters and maximum 20 characters"; 
      }
    }
 }
