@@ -18,6 +18,11 @@ $loginUsername = $loginPassword = $loginPasswordTested = "";
 $loginUsernamePregCheck = $loginPasswordPregCheck = "";
 // Check that the request mode used in the form is post, because post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['registerBackButton'])) {
+        header('location: index.php');
+        exit;
+        
+    }
   if (empty($_POST["loginUsername"])) {
     $loginUsernameError = "Userame is required";
   } else {
@@ -99,6 +104,9 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
   <br><br>
   
   <input type="submit" name="submit" value="Submit">
+    
+  <button type="submit" name="registerBackButton">Back</button>
+  <br><br>
     
     
   <br><br>
