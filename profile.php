@@ -10,6 +10,12 @@ if (isset($_POST["logout"])) {
     session_destroy();
     header("location: index.php");
 }
+
+ if (isset($_POST['profileBackButton'])) {
+        header('location: index.php');
+        exit;
+        
+    }
 ?>
 
 <!DOCTYPE HTML>  
@@ -19,6 +25,7 @@ if (isset($_POST["logout"])) {
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
     <button name="logout">Log out</button>
+    <button type="submit" name="profileBackButton">Back to homepage</button>
 </form>
     
 </body>

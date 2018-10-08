@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 
 session_start();
 
+
+
 require('../database_login_info.php');
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
@@ -18,6 +20,11 @@ $loginUsernameError = $loginPasswordError = $wrongLoginInfo = "";
 $loginUsername = $loginPassword = $loginPasswordTested = "";
 // Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if (isset($_POST['loginBackButton'])) {
+        header('location: index.php');
+        exit;
+        
+    }
   if (empty($_POST["loginUsername"])) {
     $loginUsernameError = "Userame is required";
   } else {
@@ -79,6 +86,8 @@ if (isset($_SESSION['loginUsername'])){
     <br><br>
   
     <input type="submit" name="submit" value="Submit">
+    
+    <button type="submit" name="loginBackButton">Back</button>
     
     <br><br>
     <?php echo $loginUsernameError?>
