@@ -6,6 +6,8 @@ error_reporting(E_ALL);
 
 session_start();
 
+session_regenerate_id();
+
 
 
 // Chooses whic page to go to, based on button press
