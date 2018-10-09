@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
      $loginPasswordTested = securityCheck($_POST["loginPassword"]);
      $loginPassword = mysqli_real_escape_string($conn, $loginPasswordTested);
      $loginPasswordError = "";
-     $loginPasswordPregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,20}$/', $loginPassword);
+     $loginPasswordPregCheck = preg_match('/^(?=.*[0-9])(?=.*[A-Z]).{5,21}$/', $loginPassword);
      $loginPassword = password_hash($loginPassword, PASSWORD_BCRYPT);
      
       

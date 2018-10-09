@@ -50,7 +50,7 @@ if (isset($_POST["logout"])) {
     
         <div id="login-header">Profile</div>
         
-        <div id="greeting">Welcome,<?php echo $loginUsername?></div>
+        <div id="greeting">Welcome to your profile, <?php echo $_SESSION['loginUsername']?></div>
 
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 

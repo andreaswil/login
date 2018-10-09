@@ -233,3 +233,12 @@ html {
     
 }
 
+#greeting {
+    display: flex;
+    margin-top: 20px;
+    color:white;
+    justify-content: center;
+    font-family: 'Karla', sans-serif;
+    font-size: 24px;
+    
+}
