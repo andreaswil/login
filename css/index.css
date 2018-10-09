@@ -1,0 +1,208 @@
+body {
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-right: 0;
+    margin-right: 0;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+
+#index-card-box {
+    display:flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+    background-color: #DDEDF3;
+   
+}
+
+#index-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 600px;
+    height: 300px;
+    background-color: #B0D5E3;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top: 200px;
+    margin:auto;
+}
+
+#login-card {
+    display: flex;
+    flex-direction: column;
+   
+    width: 600px;
+    height: 300px;
+    background-color: #B0D5E3;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top: 200px;
+    margin:auto;
+}
+
+
+
+#index-header {
+    display: flex;
+    color:white;
+    justify-content: center;
+    margin-top: 20px;
+    font-family: 'Karla', sans-serif;
+    font-size: 48px;
+    
+}
+
+
+#login-header {
+    display: flex;
+    margin-top: 20px;
+    color:white;
+    justify-content: center;
+    font-family: 'Karla', sans-serif;
+    font-size: 48px;
+    
+}
+
+#index-header-underline {
+    background-color:white;
+    width: 480px;
+    height: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+#button-row {
+    display: flex;
+    margin-top: 30px;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+#login-button-row {
+    display: flex;
+    margin-top: 50px;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.button:focus {
+    outline:0;
+}
+
+#login-button {
+    font-size: 32px;
+}
+
+#register-button {
+    font-size: 32px;
+}
+
+#login-back-button {
+    font-size: 32px;
+}
+
+#submit-button {
+    font-size: 32px;
+}
+
+
+.button {
+    font-family: 'Karla';
+    background-color: #B0D5E3;
+    opacity: 1;
+    width: 205px;
+    height:68px;
+    border: none;
+    font-size: 48px;
+    color:white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    opacity: 0.6;
+}
+
+
+#input-column {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    
+  
+}
+
+#name-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+#password-row {
+    display: flex;
+    margin-top: 5px;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#name-text {
+    font-family: 'Karla';
+    font-size: 24px;
+    color: white;
+}
+
+#password-text {
+    font-family: 'Karla';
+    font-size: 24px;
+    color: white;
+}
+
+#password-input {
+    color:#B0D5E3;
+    font-size: 20px;
+    font-family: 'Karla';
+}
+
+#username-input {
+    font-family: 'Karla';
+    font-size: 20px;
+    color:#B0D5E3;  
+}
+
+#error-message {
+    display: flex;
+    position: absolute;
+    margin-top: 60px;
+    font-family: 'Karla';
+    font-size: 12px;
+    color: red;
+    
+}
+

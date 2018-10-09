@@ -8,8 +8,6 @@ session_start();
 
 session_regenerate_id();
 
-
-
 // Chooses whic page to go to, based on button press
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -34,18 +32,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE HTML>  
 <html>
-<body>  
+<head>
 
-
-<h2>Welcome</h2>
-
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">    
-    <button type="submit" name="loginButton">Login</button>
-    <br><br>
-    <button type="submit" name="registerButton">Register</button>
-    <br><br>
+    <!-- Links for the different CSS files -->
+    <link rel="stylesheet" type="text/css" href="css/index.css?version=52">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
  
-</form>
+
+    <!-- Meta info -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Williams User System">
+    <meta name="keywords" content="HTML,CSS,JavaScript, PHP">
+    <meta name="author" content="Andreas Williams">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Williams User System</title>
+</head>
+
+<body>
+
+<div id="index-card-box">
+    
+    <div id="index-card">
+
+        <div id="index-header">Williams User System</div>
+        <div id="index-header-underline"></div>
+
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <div id="button-row">
+            <button type="submit" name="loginButton" id="login-button" class="button">LOGIN</button>
+            <button type="submit" name="registerButton" id="register-button" class="button">REGISTER</button>
+        </div>
+        </form>
+    </div>
+    
+</div>
     
 </body>
 </html>
