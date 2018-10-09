@@ -7,7 +7,7 @@ session_start();
 
 session_regenerate_id();
 
-require('database_login_info.php');  
+require('../httpd.private/database_login_info.php');  
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
