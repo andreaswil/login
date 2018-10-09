@@ -66,6 +66,9 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
         $_SESSION['loginUsername'] = $loginUsername;
         $_SESSION['loggedIn'] = true;
     }
+    else {
+        $wrongLoginInfo = "Wrong username and/or password";
+    }
     
 }
 
