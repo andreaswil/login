@@ -8,7 +8,7 @@ session_start();
 
 session_regenerate_id();
 
-require('database_login_info.php');  
+require('../httpd.private/database_login_info.php');  
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -66,10 +66,17 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
         $_SESSION['loginUsername'] = $loginUsername;
         $_SESSION['loggedIn'] = true;
     }
+    
     else {
         $wrongLoginInfo = "Wrong username and/or password";
     }
 }
+
+if ((empty($_POST["loginUsername"])) or (empty($_POST["loginPassword"]))){
+     $wrongLoginInfo = " ";
+}
+
+
 
 if (isset($_SESSION['loginUsername'])){
     header('location: profile.php');

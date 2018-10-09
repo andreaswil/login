@@ -7,7 +7,7 @@ session_start();
 
 session_regenerate_id();
 
-require('database_login_info.php');  
+require('../httpd.private/database_login_info.php');  
 // Create connection to MySQL database
 $conn = mysqli_connect($servername, $username, $password, $database);
 // Throw error if connection failed
@@ -69,7 +69,7 @@ function securityCheck($data) {
 }
 //If the form is submitted
 if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $loginUsernamePregCheck and $loginPasswordPregCheck){
-    $query = "SELECT * FROM `Users` WHERE username='$loginUsername' and password='$loginPassword'";
+    $query = "SELECT * FROM `Users` WHERE username='$loginUsername'";
  
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
     $count = mysqli_num_rows($result);
