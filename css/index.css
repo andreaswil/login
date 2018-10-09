@@ -41,7 +41,6 @@ html {
 #login-card {
     display: flex;
     flex-direction: column;
-   
     width: 600px;
     height: 300px;
     background-color: #B0D5E3;
@@ -127,6 +126,14 @@ html {
 }
 
 #submit-button {
+    font-size: 32px;
+}
+
+#log-out-button {
+    font-size: 32px;
+}
+
+#home-button {
     font-size: 32px;
 }
 
