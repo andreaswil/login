@@ -72,7 +72,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
     $count = mysqli_num_rows($result);
     // if nubmer of rows == 1 then the there exists a user with given username and password
-    if ($count < 1){
+    if ($count == 1){
         $wrongLoginInfo = "Username already taken";
     }
     else{
@@ -137,7 +137,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
             
                 <div id="password-text">Password:</div>
             
-                <input id="password-input" type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
+                <input id="password-input" type="password" name="loginPassword">
                 
             </div>
             
