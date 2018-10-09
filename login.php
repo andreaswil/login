@@ -17,7 +17,7 @@ if ($conn->connect_error) {
 }
 // define variables and set to empty values
 $loginUsernameError = $loginPasswordError = $wrongLoginInfo = "";
-$loginUsername = $loginPassword = $loginPasswordTested = "";
+$loginUsername = $loginPassword = $loginPasswordTested = $correctLogin= "";
 // Check that the request mode used in the form is post, as post is hiding senstive information, unlike GET.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (isset($_POST['loginBackButton'])) {
@@ -63,11 +63,13 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"])){
     $passwordCheck = password_verify($_POST["loginPassword"], $user['password']);
     // if nubmer of rows == 1 then the there exists a user with given username and password
     if ($count == 1 and $passwordCheck){
+        $correctLogin = true;
         $_SESSION['loginUsername'] = $loginUsername;
         $_SESSION['loggedIn'] = true;
     }
-    else {
-        $wrongLoginInfo = "Wrong username and/or password";
+    
+    if (!$correctLogin) {
+       $wrongLoginInfo = "Wrong username and/or password";
     }
 }
 
@@ -126,6 +128,15 @@ if (isset($_SESSION['loginUsername'])){
                 
             </div>
             
+            <div id="error-message">
+            <?php echo $loginUsernameError?>
+            <br>
+            <?php echo $loginPasswordError?>
+            <br>
+            <?php echo $wrongLoginInfo?>
+            <br>
+            </div>
+            
         </div>
             
 
@@ -139,12 +150,6 @@ if (isset($_SESSION['loginUsername'])){
     
     
     
-    <br><br>
-    <?php echo $loginUsernameError?>
-    <br><br>
-    <?php echo $loginPasswordError?>
-    <br><br>
-    <?php echo $wrongLoginInfo?>
     
 
         
