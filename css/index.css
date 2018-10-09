@@ -38,12 +38,37 @@ html {
     margin:auto;
 }
 
+#login-card {
+    display: flex;
+    flex-direction: column;
+   
+    width: 600px;
+    height: 300px;
+    background-color: #B0D5E3;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    margin-top: 200px;
+    margin:auto;
+}
+
+
 
 #index-header {
     display: flex;
     color:white;
     justify-content: center;
     margin-top: 20px;
+    font-family: 'Karla', sans-serif;
+    font-size: 48px;
+    
+}
+
+
+#login-header {
+    display: flex;
+    margin-top: 20px;
+    color:white;
+    justify-content: center;
     font-family: 'Karla', sans-serif;
     font-size: 48px;
     
@@ -67,6 +92,15 @@ html {
     margin-right: 50px;
 }
 
+#login-button-row {
+    display: flex;
+    margin-top: 10px;
+    justify-content: center;
+    flex-direction: row;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 button:focus {
     outline:0;
 }
@@ -76,6 +110,14 @@ button:focus {
 }
 
 #register-button {
+    font-size: 32px;
+}
+
+#login-back-button {
+    font-size: 32px;
+}
+
+#submit-button {
     font-size: 32px;
 }
 
@@ -100,3 +142,57 @@ button:focus {
 .button:hover {
     opacity: 0.6;
 }
+
+
+#input-column {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    
+  
+}
+
+#name-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+#password-row {
+    display: flex;
+    margin-top: 5px;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#name-text {
+    font-family: 'Karla';
+    font-size: 24px;
+    color: white;
+}
+
+#password-text {
+    font-family: 'Karla';
+    font-size: 24px;
+    color: white;
+}
+
+#password-input {
+    color:#B0D5E3;
+    font-size: 20px;
+    font-family: 'Karla';
+}
+
+#username-input {
+    font-family: 'Karla';
+    font-size: 20px;
+    color:#B0D5E3;  
+}
+
