@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 
 session_start();
 
@@ -74,7 +72,7 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn)); 
     $count = mysqli_num_rows($result);
     // if nubmer of rows == 1 then the there exists a user with given username and password
-    if ($count == 1){
+    if ($count < 1){
         $wrongLoginInfo = "Username already taken";
     }
     else{

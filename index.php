@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Links for the different CSS files -->
     <link rel="stylesheet" type="text/css" href="css/index.css?version=52">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
  
 
     <!-- Meta info -->
@@ -54,13 +55,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <div id="index-card">
 
-        <h2>Williams User System</h2>
+        <div id="index-header">Williams User System</div>
+        <div id="index-header-underline"></div>
 
-        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">    
-        <button type="submit" name="loginButton">Login</button>
-        <br><br>
-        <button type="submit" name="registerButton">Register</button>
-        <br><br>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <div id="button-row">
+            <button type="submit" name="loginButton" id="login-button" class="button">LOGIN</button>
+            <button type="submit" name="registerButton" id="register-button" class="button">REGISTER</button>
+        </div>
         </form>
     </div>
     
