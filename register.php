@@ -93,34 +93,81 @@ if (isset($_POST["loginUsername"]) and isset($_POST["loginPassword"]) and $login
 
 <!DOCTYPE HTML>  
 <html>
+<head>
+
+    <!-- Links for the different CSS files -->
+    <link rel="stylesheet" type="text/css" href="css/index.css?version=52">
+    <link href="https://fonts.googleapis.com/css?family=Karla" rel="stylesheet">
+ 
+
+    <!-- Meta info -->
+    <meta charset="UTF-8">
+    <meta name="description" content="Williams User System">
+    <meta name="keywords" content="HTML,CSS,JavaScript, PHP">
+    <meta name="author" content="Andreas Williams">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Williams User System</title>
+</head>
+    
 <body>  
 
-<h2>Register</h2>
-    
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Name: <input type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
-  <br><br>
-  Password: <input type="password" name="loginPassword">
-  <br><br>
-  
-  <input type="submit" name="submit" value="Submit">
-    
-  <button type="submit" name="registerBackButton">Back</button>
-  <br><br>
-    
-    
-  <br><br>
-  <?php echo $loginUsernameError?>
-  <br><br>
-  <?php echo $loginPasswordError?>
-  <br><br>
-  <?php echo $wrongLoginInfo?>
-    
- 
-</form>
+
 
     
+<!-- The $_SERVER["PHP_SELF"] is a super global variable that returns the filename of the currently executing script. The htmlspecialchars() function converts special characters to HTML entities. This means that it will replace HTML characters like < and > with &lt; and &gt;. This prevents attackers from exploiting the code by injecting HTML or Javascript code (Cross-site Scripting attacks) in forms. -->
+
+<div id="index-card-box">
     
+    <div id="login-card">
+    
+        <div id="login-header">Register</div>
+
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+        <div id="input-column">
+            <div id="name-row">
+                <div id="name-text">Name:</div>
+            
+                <input id="username-input" type="text" name="loginUsername" value="<?php echo $loginUsername;?>">
+       
+            
+       
+            </div>
+            <div id="password-row">
+            
+                <div id="password-text">Password:</div>
+            
+                <input id="password-input" type="password" name="loginPassword" value="<?php echo $loginPassword;?>">
+                
+            </div>
+            
+            <div id="error-message-register">
+            <?php echo $loginUsernameError?>
+            <br>
+            <?php echo $loginPasswordError?>
+            <br>
+            <?php echo $wrongLoginInfo?>
+            <br>
+            </div>
+            
+        </div>
+            
+
+        <div id="register-button-row">
+            <input class="button" type="submit" name="submit" value="SUBMIT" id="submit-button">
+    
+            <button type="submit" name="registerBackButton" id="login-back-button" class="button">BACK</button>
+        </div>
+        </form>
+    
+    
+    
+    
+    
+
+        
+    </div>
+</div>
     
 </body>
 </html>
